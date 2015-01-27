@@ -1,69 +1,35 @@
 package com.pivotal.callme.config;
 
-import java.util.Arrays;
+import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
-
-import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
-import javax.sql.DataSource;
-
 @Profile("!cloud")
 @Configuration
 public class LocalDataSourceConfig implements EnvironmentAware {
 
-	   private RelaxedPropertyResolver propertyResolver;
+	private RelaxedPropertyResolver propertyResolver;
 
-	    private Environment environment;
+	@Override
+	public void setEnvironment(Environment environment) {
+		this.propertyResolver = new RelaxedPropertyResolver(environment,
+				"spring.datasource.");
+	}
 
-	    private final Logger log = LoggerFactory.getLogger(LocalDataSourceConfig.class);
-	    
-	    @Override
-	    public void setEnvironment(Environment environment) {
-	        this.environment = environment;
-	        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.datasource.");
-	    }
-    
-    
-    @Bean
-    public DataSource dataSource() {
-    	
- 	
-    	
-        log.debug("Configuring Datasource");
-        if (propertyResolver.getProperty("url") == null && propertyResolver.getProperty("databaseName") == null) {
-            log.error("Your database connection pool configuration is incorrect! The application" +
-                    "cannot start. Please check your Spring profile, current profiles are: {}",
-                    Arrays.toString(environment.getActiveProfiles()));
+	@Bean
+	public DataSource dataSource() {
+		BasicDataSource dbcp = new BasicDataSource();
+		dbcp.setDriverClassName(propertyResolver.getProperty("dataSourceClassName"));
+		dbcp.setUrl(propertyResolver.getProperty("url"));
+		dbcp.setUsername(propertyResolver.getProperty("username"));
+		dbcp.setPassword(propertyResolver.getProperty("password"));
+		return dbcp;
+	}
 
-            throw new ApplicationContextException("Database connection pool is not configured correctly");
-        }
-        HikariConfig config = new HikariConfig();
-        config.setDataSourceClassName(propertyResolver.getProperty("dataSourceClassName"));
-        if (propertyResolver.getProperty("url") == null || "".equals(propertyResolver.getProperty("url"))) {
-            config.addDataSourceProperty("databaseName", propertyResolver.getProperty("databaseName"));
-            config.addDataSourceProperty("serverName", propertyResolver.getProperty("serverName"));
-        } else {
-            config.addDataSourceProperty("url", propertyResolver.getProperty("url"));
-        }
-        config.addDataSourceProperty("user", propertyResolver.getProperty("username"));
-        config.addDataSourceProperty("password", propertyResolver.getProperty("password"));
-        
-        
-        
-      
-    	
-        return new HikariDataSource(config);
-    }
- 
 }
