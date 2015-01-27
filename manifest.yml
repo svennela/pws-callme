@@ -1,0 +1,10 @@
+---
+applications:
+- name: twilioapp
+  memory: 512M
+  instances: 1
+  host: pws-twilio
+  #buildpack: https://github.com/cloudfoundry/java-buildpack
+  path: target/twilio-1.0.0-SNAPSHOT.war
+  timeout: 180 # to give time for the data to import
+  
