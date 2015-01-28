@@ -1,31 +1,16 @@
-Micro Services on cities
-=======================
-Copied from https://github.com/mstine/citytest
-
-Upgraded to Spring Boot 1.1.6.RELEASE
-Used Mysql as cloud and local datastore
-
 ===========
-Cities Test
+Api's
 ===========
+Create Agent API
+http://localhost:8080/createagent
+{"fullname":"sridhar","phone":"6506229240","username":"svennela","status":"ONLINE"}
 
-To Deploy PWS:
+Get Agent API
+http://localhost:8080/getagents
 
-create mysql service with below command( using cities-db in manifest file)
+Create HelpRequest API
+http://localhost:8080/creathelprequests
+{"fullname":"sridhar","phone":"6506229240","email":"sridhar.vennela@gmail.com","username":"svennela","description":"my app is failing" , "status":"PHONE"}
 
-$cf create-service p-mysql 100mb-dev cities-db
-
-mvn war:war
-
-cf push
-
-=================================
-Checking api end points with curl
-=================================
-$ curl -i "https://pws-cities.cfapps.io/cities"
-
-$ curl -i "https://pws-cities.cfapps.io/cities?size=5"
-
-$ curl -i "https://pws-cities.cfapps.io/cities?size=5&page=3"
-
-$ curl -i "https://pws-cities.cfapps.io/cities?sort=postalCode,desc"
+Get HelpRequest API
+http://localhost:8080/gethelprequests
