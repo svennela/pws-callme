@@ -96,27 +96,11 @@
 			<scope>test</scope>
 		</dependency>
 		
-		  <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>${HikariCP.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.sun</groupId>
-                    <artifactId>tools</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-		
-		
 		 <!-- Database dependencies-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        
-		
-		
 		
 		 <dependency>
             <groupId>javax.inject</groupId>
@@ -170,7 +154,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>com.pivotal.callme.Application</start-class>
 		<java.version>1.8</java.version>
-		 <HikariCP.version>1.4.0</HikariCP.version>
 		 <spring-cloud.version>1.1.0.RELEASE</spring-cloud.version>
 		 <javax.inject.version>1</javax.inject.version>
 	</properties>
