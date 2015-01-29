@@ -31,6 +31,19 @@ public class HelpRequest implements Serializable {
     @Enumerated(EnumType.STRING)
     private RequestType status;
 
+    public HelpRequest() {}
+    
+	public HelpRequest(Long id, String fullname, String phone, String email,
+			String username, String description, RequestType status) {
+		this.id = id;
+		this.fullname = fullname;
+		this.phone = phone;
+		this.email = email;
+		this.username = username;
+		this.description = description;
+		this.status = status;
+	}
+
 	public String getFullname() {
 		return fullname;
 	}

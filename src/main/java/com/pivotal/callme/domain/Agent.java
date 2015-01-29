@@ -25,6 +25,16 @@ public class Agent  implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusType status;
 
+    public Agent() {}
+    
+	public Agent(Long id, String fullname, String phone, String username, StatusType status) {
+		this.id = id;
+		this.fullname = fullname;
+		this.phone = phone;
+		this.username = username;
+		this.status = status;
+	}
+
 	public String getFullname() {
 		return fullname;
 	}
