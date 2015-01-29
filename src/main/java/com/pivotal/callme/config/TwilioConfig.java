@@ -1,21 +1,15 @@
 package com.pivotal.callme.config;
 
-import java.util.Arrays;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
-
 
 import com.thoughtworks.xstream.XStream;
 import com.twilio.sdk.TwilioRestClient;
-
-
 
 @Configuration
 public class TwilioConfig implements EnvironmentAware {

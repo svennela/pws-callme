@@ -6,5 +6,5 @@ public enum StatusType {
 	ONLINE,
 	OFFLINE,
 	AWAY
-	
+
 }

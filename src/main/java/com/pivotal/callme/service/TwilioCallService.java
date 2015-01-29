@@ -1,33 +1,21 @@
 package com.pivotal.callme.service;
 
-import org.apache.commons.lang.CharEncoding;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.pivotal.callme.bean.CallDetailsDTO;
-
 import com.thoughtworks.xstream.XStream;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.factory.CallFactory;
 import com.twilio.sdk.resource.instance.Account;
 import com.twilio.sdk.resource.instance.Call;
-import com.twilio.sdk.resource.instance.Conference;
-import com.twilio.sdk.resource.list.ConferenceList;
-import com.twilio.sdk.verbs.Gather;
-import com.twilio.sdk.verbs.Play;
-import com.twilio.sdk.verbs.Say;
-import com.twilio.sdk.verbs.TwiMLException;
-import com.twilio.sdk.verbs.TwiMLResponse;
-
-import javax.inject.Inject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * Service for sending e-mails.
