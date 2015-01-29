@@ -3,35 +3,34 @@ package com.pivotal.callme;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.pivotal.callme.domain.HelpRequest;
 import com.pivotal.callme.repos.HelpRequestRepository;
 
-@Controller
+@RestController
+@RequestMapping("/helprequests")
 public class HelpRequestController {
 
-	@Inject
+	private static final Logger log = LoggerFactory.getLogger(AgentController.class);
+	
+	@Autowired
 	HelpRequestRepository helpRequestRepository;
 
- 	@ResponseBody
-	@RequestMapping(value="/gethelprequests", method=RequestMethod.GET)
-	public List<HelpRequest> gethelprequest() {
-		
+	@RequestMapping(method=RequestMethod.GET)
+	public List<HelpRequest> get() {
 		return helpRequestRepository.findAll();
-		
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/creathelprequests", method=RequestMethod.POST)
-	public HelpRequest createhelprequest(@RequestBody HelpRequest helprequest) {
-	
+	@RequestMapping(method=RequestMethod.POST)
+	public HelpRequest post(@RequestBody HelpRequest helprequest) {
+		log.info("Created: " + helprequest);
 		return helpRequestRepository.save(helprequest);
 	}
 
