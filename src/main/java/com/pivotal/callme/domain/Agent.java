@@ -70,4 +70,11 @@ public class Agent  implements Serializable {
 	public Long getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "Agent [id=" + id + ", fullname=" + fullname + ", phone="
+				+ phone + ", username=" + username + ", status=" + status + "]";
+	}
+	
 }

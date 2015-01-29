@@ -99,4 +99,12 @@ public class HelpRequest implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "HelpRequest [id=" + id + ", fullname=" + fullname + ", phone="
+				+ phone + ", email=" + email + ", username=" + username
+				+ ", description=" + description + ", status=" + status + "]";
+	}
+	
 }
