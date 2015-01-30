@@ -7,10 +7,15 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pivotal.callme.bean.CallDetailsDTO;
+import com.pivotal.callme.domain.HelpRequest;
+import com.pivotal.callme.domain.RequestStatusType;
+import com.pivotal.callme.repos.HelpRequestRepository;
 import com.thoughtworks.xstream.XStream;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.factory.CallFactory;
@@ -35,7 +40,8 @@ public class TwilioCallService {
 
     @Inject
     private XStream xstream;
-    
+	@Autowired
+	HelpRequestRepository helpRequestRepository;
 
     @Async
     public void makeOutboundCall(CallDetailsDTO calldetails) {
@@ -62,6 +68,33 @@ public class TwilioCallService {
             log.warn("E-mail could not be sent to user '{}', exception is: {}", calldetails, e.getMessage());
         }
     }
+
+    @Transactional
+	public String processHelpRequest(HelpRequest helprequest) {
+		// TODO Auto-generated method stub
+		//check helprequest state make call only if it is queued...
+		helprequest = helpRequestRepository.findOne(helprequest.getId());
+		if(helprequest.getStatus().compareTo(RequestStatusType.QUEUED) == 0){
+			//make call and update help request
+			
+			helprequest.setStatus(RequestStatusType.INPROGRESS);
+			
+			return "Call has being placed....get ready";
+		}else if(helprequest.getStatus().compareTo(RequestStatusType.INPROGRESS) == 0){
+			//make call and update help request
+			
+			helprequest.setStatus(RequestStatusType.COMPLETED);
+			
+			return "Thank you call for taking call.";
+		}else{
+			
+			return "Invalid Request Status or Request has already being processed";
+			
+		}
+		
+		
+		//return null;
+	}
 
     
    

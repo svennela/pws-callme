@@ -27,20 +27,26 @@ public class HelpRequest implements Serializable {
     @Column
     private String description;
     
-    @Column(name="request_type")
+    @Column(name="type")
     @Enumerated(EnumType.STRING)
-    private RequestType status;
+    private RequestType type;
 
+    
+    @Column(name="status") 
+    @Enumerated(EnumType.STRING)
+    private RequestStatusType status;
+    
     public HelpRequest() {}
     
 	public HelpRequest(Long id, String fullname, String phone, String email,
-			String username, String description, RequestType status) {
+			String username, String description, RequestType type, RequestStatusType status) {
 		this.id = id;
 		this.fullname = fullname;
 		this.phone = phone;
 		this.email = email;
 		this.username = username;
 		this.description = description;
+		this.type=type;
 		this.status = status;
 	}
 
@@ -84,11 +90,11 @@ public class HelpRequest implements Serializable {
 		this.description = description;
 	}
 
-	public RequestType getStatus() {
+	public RequestStatusType getStatus() {
 		return status;
 	}
 
-	public void setStatus(RequestType status) {
+	public void setStatus(RequestStatusType status) {
 		this.status = status;
 	}
 
@@ -104,7 +110,15 @@ public class HelpRequest implements Serializable {
 	public String toString() {
 		return "HelpRequest [id=" + id + ", fullname=" + fullname + ", phone="
 				+ phone + ", email=" + email + ", username=" + username
-				+ ", description=" + description + ", status=" + status + "]";
+				+ ", description=" + description+ ", type=" + type  + ", status=" + status + "]";
+	}
+
+	public RequestType getType() {
+		return type;
+	}
+
+	public void setType(RequestType type) {
+		this.type = type;
 	}
 	
 }

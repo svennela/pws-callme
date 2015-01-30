@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.pivotal.callme.config.LocalDataSourceConfig;
 import com.pivotal.callme.domain.HelpRequest;
 import com.pivotal.callme.domain.RequestType;
-
+import com.pivotal.callme.domain.RequestStatusType;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
 		classes={RepoTestConfig.class, LocalDataSourceConfig.class}, 
@@ -29,8 +29,11 @@ public class HelpRequestRepositoryTest {
 
 	@Before
 	public void setUp() {
-		hrRepo.saveAndFlush(new HelpRequest(null, "Joe User", "555-555-5785", "joe@users.com", "juser", "I'm having a problem.", RequestType.PHONE));
-		hrRepo.saveAndFlush(new HelpRequest(null, "Sally User", "555-555-1234", "sally@users.com", "suser", "I need some help.", RequestType.IM));
+		hrRepo.saveAndFlush(new HelpRequest(null, "Joe User", "555-555-5785", "joe@users.com", "juser", "I'm having a problem.",
+				RequestType.PHONE,RequestStatusType.QUEUED));
+		hrRepo.saveAndFlush(new HelpRequest(null, "Sally User", "555-555-1234", "sally@users.com", "suser", "I need some help."
+				, RequestType.IM,RequestStatusType.QUEUED));
+		
 	}
 	
 	@After

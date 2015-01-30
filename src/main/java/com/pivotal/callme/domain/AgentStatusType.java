@@ -1,6 +1,6 @@
 package com.pivotal.callme.domain;
 
-public enum StatusType {
+public enum AgentStatusType {
 
 	NONE,
 	ONLINE,

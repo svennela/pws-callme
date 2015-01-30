@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pivotal.callme.domain.HelpRequest;
+import com.pivotal.callme.domain.RequestStatusType;
 import com.pivotal.callme.repos.HelpRequestRepository;
 
 @RestController
@@ -28,10 +29,17 @@ public class HelpRequestController {
 		return helpRequestRepository.findAll();
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST )
 	public HelpRequest post(@RequestBody HelpRequest helprequest) {
 		log.info("Created: " + helprequest);
-		return helpRequestRepository.save(helprequest);
+		helprequest.setStatus(RequestStatusType.QUEUED);
+		HelpRequest helpRequest = helpRequestRepository.save(helprequest);
+		
+		//make a call right away...
+		
+		// delete the request...
+		
+		return helpRequest;
 	}
 
 }

@@ -23,11 +23,11 @@ public class Agent  implements Serializable {
     
     @Column(name="status_type")
     @Enumerated(EnumType.STRING)
-    private StatusType status;
+    private AgentStatusType status;
 
     public Agent() {}
     
-	public Agent(Long id, String fullname, String phone, String username, StatusType status) {
+	public Agent(Long id, String fullname, String phone, String username, AgentStatusType status) {
 		this.id = id;
 		this.fullname = fullname;
 		this.phone = phone;
@@ -59,11 +59,11 @@ public class Agent  implements Serializable {
 		this.username = username;
 	}
 
-	public StatusType getStatus() {
+	public AgentStatusType getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusType status) {
+	public void setStatus(AgentStatusType status) {
 		this.status = status;
 	}
 

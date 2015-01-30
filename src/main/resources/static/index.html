@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./bower_components/bootstrap-css-only/css/bootstrap.min.css" />
+  </head>
+  <body ng-app="myApp">
+    <div class="container" ng-controller="AppController">
+      <div class="page-header">
+        <h1>HelpRequest List</h1>
+      </div>
+      <div class="alert alert-info" role="alert" ng-hide="helprequests &amp;&amp; helprequests.length > 0">
+        There are no Requests yet.
+      </div>
+      
+      <div class="alert alert-info" role="alert" ng-show="message">
+        {{message}}
+      </div>
+      
+      <form class="form-horizontal" role="form" ng-submit="addItem(newItem)">
+      
+      
+      
+        
+   <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>FullName</th>
+        <th>PhoneNumber</th>
+        <th>Email</th>
+         <th>Status</th>
+         <th>Action</th>
+      </tr>
+    </thead>
+   
+  	 <tbody>
+      <tr  ng-repeat="helprequest in helprequests">
+        <td>{{helprequest.fullname}}</td>
+        <td>{{helprequest.phone}}</td>
+        <td>{{helprequest.email}}</td>
+        <td>{{helprequest.status}}</td>
+        <td >
+        
+   		<div ng-if=" helprequest.type == 'PHONE' && helprequest.status ==  'QUEUED' ">
+	          <button class="pull-right btn" type="button" title="Phone"
+	              ng-click="callHelprequest(helprequest)">
+	              <span class="glyphicon glyphicon-phone"></span>
+	         </button>
+       	</div>
+	      <div ng-if=" helprequest.type == 'EMAIL' && helprequest.status ==  'QUEUED'">
+	         <button class="pull-right btn" type="button" title="Email"
+	              ng-click="callHelprequest(helprequest)">
+	              <span class="glyphicon glyphicon-envelope"></span>
+	         </button>
+	       </div> 
+       
+       <div ng-if=" helprequest.status ==  'INPROGRESS' ">
+	          <button class="pull-right btn" type="button" title="Phone"
+	              ng-click="callHelprequest(helprequest)"> Complete
+	             
+	         </button>
+       	</div>
+
+       
+              
+         
+         </td>
+       </tr>
+     </tbody> 
+      
+  </table>
+        <hr />
+   
+      </form>
+    </div>
+    <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="./bower_components/lodash/dist/lodash.min.js"></script>
+    <script type="text/javascript" src="./app/app.js"></script>
+    <script type="text/javascript" src="./app/controllers.js"></script>
+    <script type="text/javascript" src="./app/services.js"></script>
+  </body>
+</html>

@@ -1,10 +1,11 @@
 ---
 applications:
-- name: twilioapp
+- name: pwscallmeapp
   memory: 512M
   instances: 1
-  host: pws-twilio
+  host: pws-callme
   #buildpack: https://github.com/cloudfoundry/java-buildpack
-  path: target/twilio-1.0.0-SNAPSHOT.war
+  path: target/pws-callme-1.0.0-SNAPSHOT.war
   timeout: 180 # to give time for the data to import
-  
+  services:
+  - pwscallme-db

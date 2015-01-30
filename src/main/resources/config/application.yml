@@ -8,14 +8,17 @@ spring:
         username: sa
         password: 
      jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: MYSQL
+        openInView: false
         show_sql: true
         generate-ddl: true
         hibernate:
             ddl-auto: create
 twilio:
-    account_sid: asdfasdf
-    auth_token: asdfadf
+    account_sid: ACc33504008109aa3d3cf5e329cc3dfe2e
+    auth_token: 7ce54131d9446ae413141fd4014d2c91
+    callback_url: http://pws-twilio.cfapps.io/twimlurl/
 
     
 

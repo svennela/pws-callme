@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.pivotal.callme.config.LocalDataSourceConfig;
 import com.pivotal.callme.domain.Agent;
-import com.pivotal.callme.domain.StatusType;
+import com.pivotal.callme.domain.AgentStatusType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
@@ -29,10 +29,10 @@ public class AgentRepositoryTest {
 
 	@Before
 	public void setUp() {
-		agentRepo.saveAndFlush(new Agent(null, "Albert Belle", "216-545-2300", "abelle", StatusType.OFFLINE));
-		agentRepo.saveAndFlush(new Agent(null, "Frank Williams", "747-232-9789", "frankwilliams", StatusType.ONLINE));
-		agentRepo.saveAndFlush(new Agent(null, "Gary Collins", "545-877-1212", "fcollins", StatusType.AWAY));
-		agentRepo.saveAndFlush(new Agent(null, "Terry Franco", "909-545-1234", "tfranco", StatusType.ONLINE));
+		agentRepo.saveAndFlush(new Agent(null, "Albert Belle", "216-545-2300", "abelle", AgentStatusType.OFFLINE));
+		agentRepo.saveAndFlush(new Agent(null, "Frank Williams", "747-232-9789", "frankwilliams", AgentStatusType.ONLINE));
+		agentRepo.saveAndFlush(new Agent(null, "Gary Collins", "545-877-1212", "fcollins", AgentStatusType.AWAY));
+		agentRepo.saveAndFlush(new Agent(null, "Terry Franco", "909-545-1234", "tfranco", AgentStatusType.ONLINE));
 	}
 	
 	@After
