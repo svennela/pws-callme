@@ -16,8 +16,8 @@ spring:
         hibernate:
             ddl-auto: create
 twilio:
-    account_sid: ACc33504008109aa3d3cf5e329cc3dfe2e
-    auth_token: 7ce54131d9446ae413141fd4014d2c91
+    account_sid: 12312
+    auth_token: 1312312
     callback_url: http://pws-twilio.cfapps.io/twimlurl/
 
     
