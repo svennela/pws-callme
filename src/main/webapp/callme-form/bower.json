@@ -1,0 +1,20 @@
+{
+  "name": "callme-form",
+  "version": "0.0.1",
+  "authors": [
+    "Daniel Mikusa <dmikusa@pivotal.io>"
+  ],
+  "description": "A simple form to submit instant help requests.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3"
+  }
+}
