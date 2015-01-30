@@ -3,6 +3,7 @@ package com.pivotal.callme.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -50,6 +51,7 @@ public class HelpRequestController {
 	@RequestMapping(method=RequestMethod.POST)
 	public void post(@RequestBody HelpRequest helprequest, 
 					 @RequestHeader(value="X-Security-Token", defaultValue="") String token,
+					 HttpServletRequest request,
 					 HttpServletResponse response) {
 		if (MAGIC_TOKEN.equals(token)) {
 			log.info("Created: " + helprequest);
@@ -58,7 +60,7 @@ public class HelpRequestController {
 			helpRequestRepository.save(helprequest);
 			
 			response.setStatus(HttpServletResponse.SC_CREATED);
-			response.setHeader("Location", "http://localhost:8080/helprequest/" + helprequest.getId());
+			response.setHeader("Location", request.getRequestURL() + "/" + helprequest.getId());
 		} else {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		}
