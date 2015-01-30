@@ -3,10 +3,14 @@ package com.pivotal.callme.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,22 +28,29 @@ public class HelpRequestController {
 	@Autowired
 	HelpRequestRepository helpRequestRepository;
 
+	@Value("${helprequests.magic_token}")
+	private String MAGIC_TOKEN;
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<HelpRequest> get() {
 		return helpRequestRepository.findAll();
 	}
 	
-	@RequestMapping(method=RequestMethod.POST )
-	public HelpRequest post(@RequestBody HelpRequest helprequest) {
-		log.info("Created: " + helprequest);
-		helprequest.setStatus(RequestStatusType.QUEUED);
-		HelpRequest helpRequest = helpRequestRepository.save(helprequest);
-		
-		//make a call right away...
-		
-		// delete the request...
-		
-		return helpRequest;
+	@RequestMapping(method=RequestMethod.POST)
+	public void post(@RequestBody HelpRequest helprequest, 
+					 @RequestHeader(value="X-Security-Token", defaultValue="") String token,
+					 HttpServletResponse response) {
+		if (MAGIC_TOKEN.equals(token)) {
+			log.info("Created: " + helprequest);
+			
+			helprequest.setStatus(RequestStatusType.QUEUED);
+			helpRequestRepository.save(helprequest);
+			
+			response.setStatus(HttpServletResponse.SC_CREATED);
+			response.setHeader("Location", "http://localhost:8080/helprequest/" + helprequest.getId());
+		} else {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+		}
 	}
 
 }
